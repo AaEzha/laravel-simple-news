@@ -36,7 +36,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">{{ config('app.name') }}</div>
         </a>
 
         <!-- Divider -->
@@ -58,10 +58,18 @@
         </div>
 
         <!-- Nav Item -->
-        <li class="nav-item {{ Nav::isRoute('basic.index') }}">
-            <a class="nav-link" href="{{ route('basic.index') }}">
-                <i class="fas fa-fw fa-plus"></i>
-                <span>{{ __('Basic CRUD') }}</span>
+        <li class="nav-item {{ Nav::isRoute('category.index') }}">
+            <a class="nav-link" href="{{ route('category.index') }}">
+                <i class="fas fa-fw fa-hands-helping"></i>
+                <span>{{ __('Categories') }}</span>
+            </a>
+        </li>
+
+        <!-- Nav Item -->
+        <li class="nav-item {{ Nav::isRoute('article.index') }}">
+            <a class="nav-link" href="{{ route('article.index') }}">
+                <i class="fas fa-fw fa-book"></i>
+                <span>{{ __('Articles') }}</span>
             </a>
         </li>
 
@@ -70,22 +78,6 @@
             <a class="nav-link" href="{{ route('profile') }}">
                 <i class="fas fa-fw fa-user"></i>
                 <span>{{ __('Profile') }}</span>
-            </a>
-        </li>
-
-        <!-- Nav Item - About -->
-        <li class="nav-item {{ Nav::isRoute('about') }}">
-            <a class="nav-link" href="{{ route('about') }}">
-                <i class="fas fa-fw fa-hands-helping"></i>
-                <span>{{ __('About') }}</span>
-            </a>
-        </li>
-
-        <!-- Nav Item -->
-        <li class="nav-item {{ Nav::isRoute('blank') }}">
-            <a class="nav-link" href="{{ route('blank') }}">
-                <i class="fas fa-fw fa-book"></i>
-                <span>{{ __('Blank Page') }}</span>
             </a>
         </li>
 

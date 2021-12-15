@@ -32,4 +32,6 @@ Route::get('/blank', function () {
 
 Route::middleware('auth')->group(function() {
     Route::resource('basic', BasicController::class);
+    Route::resource('category', CategoryController::class)->except('show');
+    Route::resource('article', ArticleController::class)->except('show');
 });
