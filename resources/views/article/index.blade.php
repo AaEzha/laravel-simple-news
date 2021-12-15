@@ -7,6 +7,8 @@
     <!-- Main Content goes here -->
 
     <a href="{{ route('article.create') }}" class="btn btn-primary mb-3">New Article</a>
+    <a href="{{ route('article.export-excel') }}" class="btn btn-secondary mb-3"><i class="fa fa-file-excel" aria-hidden="true"></i> Export to Excel</a>
+    <a href="{{ route('article.export-pdf') }}" class="btn btn-secondary mb-3"><i class="fa fa-file-pdf" aria-hidden="true"></i> Export to PDF</a>
 
     @if (session('message'))
         <div class="alert alert-success">

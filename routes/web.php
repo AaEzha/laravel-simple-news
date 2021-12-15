@@ -34,4 +34,8 @@ Route::middleware('auth')->group(function() {
     Route::resource('basic', BasicController::class);
     Route::resource('category', CategoryController::class)->except('show');
     Route::resource('article', ArticleController::class)->except('show');
+
+    // export
+    Route::get('article/export/excel', ExportArticleController::class)->name('article.export-excel');
+    Route::get('article/export/pdf', ExportArticlePDFController::class)->name('article.export-pdf');
 });
