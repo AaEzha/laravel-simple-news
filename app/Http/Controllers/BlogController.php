@@ -16,8 +16,11 @@ class BlogController extends Controller
 
     public function show(Article $article)
     {
+        $article->increment('user_views');
+
         return view('read', [
             'article' => $article
         ]);
     }
+
 }

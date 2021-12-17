@@ -223,10 +223,10 @@
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: [{!! $titles !!}],
             datasets: [{
                 label: '# of Views',
-                data: [12, 19, 3, 5, 2, 3],
+                data: [{{ $user_views }}],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
