@@ -43,14 +43,32 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item {{ Nav::isRoute('home') }}">
-            <a class="nav-link" href="{{ route('home') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>{{ __('Dashboard') }}</span></a>
+        <li class="nav-item {{ Nav::isRoute('blog') }}">
+            <a class="nav-link" href="{{ route('blog') }}">
+                <i class="fas fa-fw fa-home"></i>
+                <span>{{ __('Home') }}</span></a>
         </li>
 
-        <!-- Divider -->
         <hr class="sidebar-divider">
+
+        @guest
+
+        <li class="nav-item {{ Nav::isRoute('login') }}">
+            <a class="nav-link" href="{{ route('login') }}">
+                <i class="fas fa-fw fa-sign-in-alt"></i>
+                <span>{{ __('Login') }}</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ Nav::isRoute('register') }}">
+            <a class="nav-link" href="{{ route('register') }}">
+                <i class="fas fa-fw fa-user-plus"></i>
+                <span>{{ __('Register') }}</span>
+            </a>
+        </li>
+
+        @else
+        <!-- Divider -->
 
         <!-- Heading -->
         <div class="sidebar-heading">
@@ -58,18 +76,10 @@
         </div>
 
         <!-- Nav Item -->
-        <li class="nav-item {{ Nav::isRoute('category.index') }}">
-            <a class="nav-link" href="{{ route('category.index') }}">
+        <li class="nav-item {{ Nav::isRoute('home') }}">
+            <a class="nav-link" href="{{ route('home') }}">
                 <i class="fas fa-fw fa-hands-helping"></i>
-                <span>{{ __('Categories') }}</span>
-            </a>
-        </li>
-
-        <!-- Nav Item -->
-        <li class="nav-item {{ Nav::isRoute('article.index') }}">
-            <a class="nav-link" href="{{ route('article.index') }}">
-                <i class="fas fa-fw fa-book"></i>
-                <span>{{ __('Articles') }}</span>
+                <span>{{ __('Dashboard') }}</span>
             </a>
         </li>
 
@@ -84,14 +94,8 @@
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
+        @endguest
 
-        <!-- Nav Item - Profile -->
-        <li class="nav-item {{ Nav::isRoute('blog') }}">
-            <a class="nav-link" href="{{ route('blog') }}">
-                <i class="fas fa-fw fa-user"></i>
-                <span>{{ __('Blog Homepage') }}</span>
-            </a>
-        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
@@ -115,6 +119,8 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
+                <h3>All Posts</h3>
+
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
@@ -126,26 +132,6 @@
                     </li>
 
                     <div class="topbar-divider d-none d-sm-block"></div>
-
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                            <figure class="img-profile rounded-circle avatar font-weight-bold" data-initial="{{ Auth::user()->name[0] }}"></figure>
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ route('profile') }}">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                {{ __('Profile') }}
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                {{ __('Logout') }}
-                            </a>
-                        </div>
-                    </li>
 
                 </ul>
 

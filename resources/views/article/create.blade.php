@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content"
+                    <textarea class="form-control ckeditor @error('content') is-invalid @enderror" name="content" id="content"
                         rows="3">{{ old('content') }}</textarea>
                     @error('content')
                         <span class="text-danger">{{ $message }}</span>
@@ -68,4 +68,13 @@
             {{ session('status') }}
         </div>
     @endif
+@endpush
+
+@push('js')
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ckeditor').ckeditor();
+        });
+    </script>
 @endpush

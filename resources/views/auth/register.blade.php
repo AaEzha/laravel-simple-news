@@ -61,6 +61,12 @@
                                         {{ __('Already have an account? Login!') }}
                                     </a>
                                 </div>
+
+                                @if (Route::has('blog'))
+                                    <div class="text-center">
+                                        <a class="small" href="{{ route('blog') }}">{{ __('Back to Homepage') }}</a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

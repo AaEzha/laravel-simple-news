@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -24,13 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::count();
-
-        $widget = [
-            'users' => $users,
-            //...
-        ];
-
-        return view('home', compact('widget'));
+        return view('home', [
+            'articles' => Article::all(),
+            'users' => User::count(),
+            'total_article' => Article::count(),
+            'total_category' => Category::count(),
+            'total_view' => Article::sum('user_views')
+        ]);
     }
 }
