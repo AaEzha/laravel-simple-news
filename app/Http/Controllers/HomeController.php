@@ -32,7 +32,7 @@ class HomeController extends Controller
         $articles = Article::latest()->get();
         foreach($articles as $article) {
             $titles .= "\"";
-            $titles .= $article->title . ',';
+            $titles .= $article->title;
             $titles .= "\"";
             $titles .= ",";
             $user_views .= $article->user_views . ",";
