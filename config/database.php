@@ -39,6 +39,8 @@ return [
     |
     */
 
+
+
     'connections' => [
 
         'sqlite' => [

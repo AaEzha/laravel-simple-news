@@ -13,4 +13,11 @@ class BlogController extends Controller
             'articles' => Article::simplePaginate(5)
         ]);
     }
+
+    public function show(Article $article)
+    {
+        return view('read', [
+            'article' => $article
+        ]);
+    }
 }

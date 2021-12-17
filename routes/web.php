@@ -40,3 +40,5 @@ Route::middleware('auth')->group(function() {
     Route::get('article/export/excel', ExportArticleController::class)->name('article.export-excel');
     Route::get('article/export/pdf', ExportArticlePDFController::class)->name('article.export-pdf');
 });
+
+Route::get('/{article:slug}', 'BlogController@show')->name('read');
