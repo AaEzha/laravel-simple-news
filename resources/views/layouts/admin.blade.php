@@ -167,7 +167,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; SB Admin 2 + Bootstrap 4 2021</span>
+                    <span>Copyright &copy; Kelompok 14 @ 2021</span>
                 </div>
             </div>
         </footer>
