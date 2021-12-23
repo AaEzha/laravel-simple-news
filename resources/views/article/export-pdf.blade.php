@@ -21,6 +21,7 @@
         <p>Created by {{ $article->user->full_name }}, {{ $article->created_at->format('d F Y, H:i') }}</p>
         {!! $article->content !!}
         <p class="pt-3">Category: {{ $article->category->name }}</p>
+        <p class="pt-3">Thumbnail: {{ asset('storage/'.$article->thumbnail) }}</p>
         <hr />
     @empty
 

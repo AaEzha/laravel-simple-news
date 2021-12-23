@@ -7,6 +7,7 @@
             <th>Content</th>
             <th>Writer</th>
             <th>User Views</th>
+            <th>Thumbnail</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
                 <td>{!! $article->content !!}</td>
                 <td>{{ $article->user->name }}</td>
                 <td>{{ $article->user_views }}</td>
+                <td>{{ asset('storage/'.$article->thumbnail) }}</td>
             </tr>
         @empty
             <tr>

@@ -26,7 +26,8 @@ class UpdateArticleRequest extends FormRequest
         return [
             'title' => 'required|unique:articles,title,' . $this->article->id,
             'category' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'thumbnail' => 'image|mimes:jpg,png,jpeg,gif,svg'
         ];
     }
 }

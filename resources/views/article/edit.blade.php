@@ -8,7 +8,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('article.update', $article->id) }}" method="post">
+            <form action="{{ route('article.update', $article->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
 
@@ -42,6 +42,18 @@
                     @error('category')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="thumbnail">Thumbnail</label>
+                    <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" name="thumbnail" id="thumbnail"
+                        placeholder="thumbnail">
+                    @error('thumbnail')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    @if (!empty($article->thumbnail))
+                        <p class="pt-3"><a href="{{ asset('storage/'.$article->thumbnail) }}" target="_blank"><img src="{{ asset('storage/'.$article->thumbnail) }}" alt="{{ $article->title }}" height="300"></a></p>
+                    @endif
                 </div>
 
                 <button type="submit" class="btn btn-primary">Save</button>

@@ -8,7 +8,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('article.store') }}" method="post">
+            <form action="{{ route('article.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -39,6 +39,15 @@
                         @endforeach
                     </select>
                     @error('category')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="thumbnail">Thumbnail</label>
+                    <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" name="thumbnail" id="thumbnail"
+                        placeholder="thumbnail">
+                    @error('thumbnail')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>

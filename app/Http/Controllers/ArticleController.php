@@ -6,6 +6,7 @@ use App\Article;
 use App\Category;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
@@ -19,7 +20,7 @@ class ArticleController extends Controller
     {
         return view('article.index', [
             'title' => 'Articles',
-            'articles' => Article::paginate(10)
+            'articles' => Article::latest()->paginate(10)
         ]);
     }
 
@@ -46,10 +47,14 @@ class ArticleController extends Controller
     {
         $slug = Str::slug($request->title);
 
+        $thumbnail = time() . "-" . $request->file('thumbnail')->getClientOriginalName();
+        $request->file('thumbnail')->storeAs('public', $thumbnail);
+
         Article::create([
             'title' => $request->title,
             'slug' => $slug,
             'content' => $request->content,
+            'thumbnail' => $thumbnail,
             'category_id' => $request->category,
             'user_id' => auth()->user()->id
         ]);
@@ -82,6 +87,14 @@ class ArticleController extends Controller
     public function update(UpdateArticleRequest $request, Article $article)
     {
         $slug = Str::slug($request->title);
+
+        if ($request->hasFile('thumbnail')) {
+            $thumbnail = time() . "-" . $request->file('thumbnail')->getClientOriginalName();
+            $request->file('thumbnail')->storeAs('public', $thumbnail);
+            $article->update([
+                'thumbnail' => $thumbnail
+            ]);
+        }
 
         $article->update([
             'title' => $request->title,

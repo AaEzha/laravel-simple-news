@@ -26,7 +26,8 @@ class StoreArticleRequest extends FormRequest
         return [
             'title' => 'required|unique:articles,title',
             'category' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'thumbnail' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ];
     }
 }
