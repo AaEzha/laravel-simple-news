@@ -25,7 +25,9 @@ SB Admin 2 for Laravel 8.
 - Rename or copy `.env.example` file to `.env`
 - Run `php artisan key:generate`
 - Set your database credentials in your `.env` file
-- Run migration `php artisan migrate`
+- Run migration `php artisan migrate --seed`
+- Run server `php artisan server`
+- Proceed to login `http://ngeblogyuk.herokuapp.com/login` with email `admin@mail.com` and password `password`
 - Make something awesome!
 
 ## Note
