@@ -6,12 +6,12 @@
     <h1 class="h3 mb-4 text-gray-800">{{ __('Dashboard') }}</h1>
 
     @if (session('success'))
-    <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+        <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     @endif
 
     @if (session('status'))
@@ -105,32 +105,35 @@
                         $patokan = 1000;
                     @endphp
                     @foreach ($articles as $article)
-                    @php
-                        $nilai = $article->user_views / $patokan * 100;
+                        @php
+                            $nilai = ($article->user_views / $patokan) * 100;
 
-                        switch ($nilai) {
-                            case $nilai > 80:
-                                $status = "success";
-                                break;
-                            case $nilai > 60:
-                                $status = "info";
-                                break;
-                            case $nilai > 40:
-                                $status = "primary";
-                                break;
-                            case $nilai > 20:
-                                $status = "warning";
-                                break;
+                            switch ($nilai) {
+                                case $nilai > 80:
+                                    $status = 'success';
+                                    break;
+                                case $nilai > 60:
+                                    $status = 'info';
+                                    break;
+                                case $nilai > 40:
+                                    $status = 'primary';
+                                    break;
+                                case $nilai > 20:
+                                    $status = 'warning';
+                                    break;
 
-                            default:
-                                $status = "secondary";
-                                break;
-                        }
-                    @endphp
-                    <h4 class="small font-weight-bold">{{ $article->title }} <span class="float-right">{{ $nilai }}%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-{{ $status }}" role="progressbar" style="width: {{ $nilai }}%" aria-valuenow="{{ $nilai }}" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                                default:
+                                    $status = 'secondary';
+                                    break;
+                            }
+                        @endphp
+                        <h4 class="small font-weight-bold">{{ $article->title }} <span
+                                class="float-right">{{ $nilai }}%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-{{ $status }}" role="progressbar"
+                                style="width: {{ $nilai }}%" aria-valuenow="{{ $nilai }}" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
                     @endforeach
                 </div>
             </div>
@@ -194,7 +197,7 @@
             <!-- Illustrations -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">User Views</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">User Views - Bar Chart</h6>
                 </div>
                 <div class="card-body">
                     <canvas id="myChart" width="400" height="200"></canvas>
@@ -204,11 +207,10 @@
             <!-- Approach -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">User Views - Pie Chart</h6>
                 </div>
                 <div class="card-body">
-                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                    <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
+                    <canvas id="tagsChart" width="400" height="200"></canvas>
                 </div>
             </div>
 
@@ -217,42 +219,78 @@
 @endsection
 
 @push('js')
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js" integrity="sha256-D2tkh/3EROq+XuDEmgxOLW1oNxf0rLNlOwsPIUX+co4=" crossorigin="anonymous"></script>
-<script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [{!! $titles !!}],
-            datasets: [{
-                label: '# of Views',
-                data: [{{ $user_views }}],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"
+        integrity="sha256-D2tkh/3EROq+XuDEmgxOLW1oNxf0rLNlOwsPIUX+co4=" crossorigin="anonymous"></script>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{!! $titles !!}],
+                datasets: [{
+                    label: '# of Views',
+                    data: [{{ $user_views }}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
+    </script>
+    <script>
+        const ctz = document.getElementById('tagsChart').getContext('2d');
+        const tagsChart = new Chart(ctz, {
+            type: 'pie',
+            data: {
+                labels: [{!! $titles !!}],
+                datasets: [{
+                    label: 'Dataset 1',
+                    data: [{{ $user_views }}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'User Views'
+                    }
+                }
+            },
+        });
     </script>
 @endpush
